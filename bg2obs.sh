@@ -18,15 +18,15 @@
 
 usage()
 {
-	echo "Usage: $0 [-beaicyh] [-v version]"
+	echo "Usage: $0 [-beaipcyh] [-v version]"
 	echo "  -v version   Specify the translation to download (default = WEB)"
 	echo "  -b    Set words of Jesus in bold"
-	echo "  -e    Include editorial headers"
+	echo "  -e    Debug mode"
 	echo "  -a    Create an alias in the YAML front matter for each chapter title"
 	echo "  -i    Show download information (i.e. verbose mode)"
 	echo "  -c    Include inline navigation for the breadcrumbs plugin (e.g. 'up', 'next','previous')"
 	echo "  -y    Print navigation for the breadcrumbs plugin (e.g. 'up', 'next','previous') in the frontmatter (YAML)"
-	echo "  -h    Display help"
+  echo "  -h    Display help"
 	exit 1
 }
 
@@ -35,9 +35,9 @@ usage()
 # Clear translation variable if it exists and set defaults for others
 translation='WEB'    # Which translation to use
 boldwords="false"    # Set words of Jesus in bold
-headers="false"      # Include editorial headers
 aliases="false"      # Create an alias in the YAML front matter for each chapter title
 verbose="false"      # Show download progress for each chapter
+debug_flag="false"      # Show download progress for each chapter
 breadcrumbs_inline="false"      # Print breadcrumbs in the file
 breadcrumbs_yaml="false"      # Print breadcrumbs in the YAML
 
@@ -47,7 +47,7 @@ do
 	case $c in
 		v) translation=$OPTARG ;;
 		b) boldwords="true" ;;
-		e) headers="true" ;;
+		e) debug_flag="true" ;;
 		a) aliases="true" ;;
 		i) verbose="true" ;;
 		c) breadcrumbs_inline="true" ;;
@@ -173,18 +173,37 @@ filename=${export_prefix}$chapter # Setting the filename
   fi
   fi
 
-  if [[ $boldwords = "true" && $headers = "false" ]] ; then
-    text=$(ruby bg2md.rb -e -c -b -f -l -r -v "${translation}" "${book} ${chapter}") # This calls the 'bg2md_mod' script
-  elif [[ $boldwords = "true" && $headers = "true" ]] ; then
+  if [[ $boldwords = "true" ]] ; then
     text=$(ruby bg2md.rb -c -b -f -l -r -v "${translation}" "${book} ${chapter}") # This calls the 'bg2md_mod' script
-  elif [[ $boldwords = "false" && $headers = "true" ]] ; then
-    text=$(ruby bg2md.rb -e -c -f -l -r -v "${translation}" "${book} ${chapter}") # This calls the 'bg2md_mod' script
   else
-    text=$(ruby bg2md.rb -e -c -f -l -r -v "${translation}" "${book} ${chapter}") # This calls the 'bg2md_mod' script
+    text=$(ruby bg2md.rb -c -f -l -r -v "${translation}" "${book} ${chapter}") # This calls the 'bg2md_mod' script
   fi
 
 
+if [[ $debug_flag = "true" ]] ; then
+  echo "${text}"
+  echo "${translation}" "${book} ${chapter}"
+  echo "Continue?"
+  select yn in "Yes" "No"; do
+      case $yn in
+          Yes ) break;;
+          No ) exit;;
+      esac
+  done
+fi
+
   text=$(echo "$text" | sed 's/^(.*?)v1/v1/') # Deleting unwanted headers
+
+if [[ $debug_flag = "true" ]] ; then
+  echo "${text}"
+  echo "Continue?"
+  select yn in "Yes" "No"; do
+      case $yn in
+          Yes ) break;;
+          No ) exit;;
+      esac
+  done
+fi
 
   # Formatting the title for markdown
   title="# ${book} ${chapter}"
@@ -270,8 +289,8 @@ find . -name "*.md" -print0 | xargs -0 perl -pi -e 's/#.*(#####\D[1]\D)/#$1/g'
 #find . -name "*.md" -print0 | xargs -0 perl -pi -e 's/######\s([0-9]\s|[0-9][0-9]\s|[0-9][0-9][0-9]\s)/\n\n###### $1\n/g'
 #Perl 的正则表达式中如果出现 () ，则发生匹配或替换后 () 内的模式被 Perl 解释器自动依次赋给系统 $1, $2
 find . -name "*.md" -print0 | xargs -0 perl -pi -e 's/######\s([0-9]|[0-9][0-9]|[0-9][0-9][0-9])\s/$1./g'
-find . -name "*.md" -print0 | xargs -0 perl -pi -e 's/##.+$//g'
-find . -name "*.md" -print0 | xargs -0 perl -0777pi -e 's/\n\n\n/\n/g'
+find . -name "*.md" -print0 | xargs -0 perl -pi -e 's/####.+$//g'
+find . -name "*.md" -print0 | xargs -0 perl -0777pi -e 's/\n\n\n/\n\n/g'
 
 # Delete crossreferences
 find . -name "*.md" -print0 | xargs -0 perl -pi -e 's/\<crossref intro.*crossref\>//g'
