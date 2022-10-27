@@ -65,6 +65,11 @@ select yn in "Yes" "No"; do
     esac
 done
 
+# Get bg2md.rb
+git clone https://github.com/jgclark/BibleGateway-to-Markdown.git
+mv mv BibleGateway-to-Markdown/bg2md.rb ./
+rm -rf BibleGateway-to-Markdown
+
 # Initialize variables
 book_counter=0 # Setting the counter to 0
 book_counter_max=66 # Setting the max amount to 66, since there are 66 books we want to import
@@ -261,8 +266,12 @@ fi
 # Clear unnecessary headers
 find . -name "*.md" -print0 | xargs -0 perl -pi -e 's/#.*(#####\D[1]\D)/#$1/g'
 
-# Format verses into H6 headers
-find . -name "*.md" -print0 | xargs -0 perl -pi -e 's/######\s([0-9]\s|[0-9][0-9]\s|[0-9][0-9][0-9]\s)/\n\n###### $1\n/g'
+# Format verses
+#find . -name "*.md" -print0 | xargs -0 perl -pi -e 's/######\s([0-9]\s|[0-9][0-9]\s|[0-9][0-9][0-9]\s)/\n\n###### $1\n/g'
+#Perl 的正则表达式中如果出现 () ，则发生匹配或替换后 () 内的模式被 Perl 解释器自动依次赋给系统 $1, $2
+find . -name "*.md" -print0 | xargs -0 perl -pi -e 's/######\s([0-9]|[0-9][0-9]|[0-9][0-9][0-9])\s/$1./g'
+find . -name "*.md" -print0 | xargs -0 perl -pi -e 's/##.+$//g'
+find . -name "*.md" -print0 | xargs -0 perl -0777pi -e 's/\n\n\n/\n/g'
 
 # Delete crossreferences
 find . -name "*.md" -print0 | xargs -0 perl -pi -e 's/\<crossref intro.*crossref\>//g'
