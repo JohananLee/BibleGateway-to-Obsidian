@@ -18,7 +18,7 @@
 
 usage()
 {
-	echo "Usage: $0 [-beaipcyh] [-v version]"
+	echo "Usage: $0 [-beaicyh] [-v version]"
 	echo "  -v version   Specify the translation to download (default = WEB)"
 	echo "  -b    Set words of Jesus in bold"
 	echo "  -e    Debug mode"
@@ -294,6 +294,9 @@ find . -name "*.md" -print0 | xargs -0 perl -0777pi -e 's/\n\n\n/\n\n/g'
 
 # Delete crossreferences
 find . -name "*.md" -print0 | xargs -0 perl -pi -e 's/\<crossref intro.*crossref\>//g'
+
+# Delete bg2md.rb
+rm bg2md.rb
 
 if [[ $verbose = "true" ]]; then
 echo "Download complete. Markdown files ready for Obsidian import."

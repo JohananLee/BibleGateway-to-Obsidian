@@ -51,7 +51,6 @@ Once you have navigated to the directory containing both scripts, run `bash bg2o
 
 Several options are available via command-line switches. Type `bash bg2obs.sh -h` at any time to display them.
 
-#### Script option summary
 | Option | Description |
 | ------ | ----------- |
 | `-v [VERSION]` | Specify the version of the Bible to download (default is WEB) |
@@ -63,7 +62,6 @@ Several options are available via command-line switches. Type `bash bg2obs.sh -h
 | `-y` | Include navigation for the breadcrumbs plugin in the *frontmatter* (YAML) (default is Off)|
 | `-h` | Display help |
 
-#### Example usage
 | Command | Description |
 | ------- | ----------- | 
 |`bash bg2obs.sh -i -v NET` | Download a copy of the NET Bible with no other options.|

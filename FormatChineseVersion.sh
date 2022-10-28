@@ -133,7 +133,7 @@ prename 's/Psalms/诗篇/' */*/**
 prename 's/Revelation/启示录/' */*/**
 prename 's/Romans/罗马人书/' */*/**
 prename 's/Ruth/路得记/' */*/**
-prename 's/Song of Songs/雅歌/' */*/**
+prename 's/Song of Solomon/雅歌/' */*/**
 prename 's/Titus/提多书/' */*/**
 prename 's/Zechariah/撒加利亚书/' */*/**
 prename 's/Zephaniah/西番雅书/' */*/**
@@ -201,7 +201,7 @@ sed -i 's/Psalms/诗篇/g' */*/**.md
 sed -i 's/Revelation/启示录/g' */*/**.md
 sed -i 's/Romans/罗马人书/g' */*/**.md
 sed -i 's/Ruth/路得记/g' */*/**.md
-sed -i 's/Song of Songs/雅歌/g' */*/**.md
+sed -i 's/Song of Solomon/雅歌/g' */*/**.md
 sed -i 's/Titus/提多书/g' */*/**.md
 sed -i 's/Zechariah/撒加利亚书/g' */*/**.md
 sed -i 's/Zephaniah/西番雅书/g' */*/**.md
