@@ -105,7 +105,7 @@ iscnbook="false"
 for element in "${cn_version[@]}"; do
   if [ "$translation" = "$element" ]; then
     iscnbook="true"
-    biblename="圣经 (${translation})"
+    biblename="圣经(${translation})"
   fi
 done
 
@@ -147,7 +147,7 @@ for ((book_counter = 0; book_counter <= book_counter_max; book_counter++)); do
     ((next_chapter = chapter + 1))
 
     # Exporting
-    export_prefix="${book} "          # Setting the first half of the filename
+    export_prefix="${book}"          # Setting the first half of the filename
     filename=${export_prefix}$chapter # Setting the filename
 
     prev_file=${export_prefix}$prev_chapter # Naming previous and next files
@@ -162,13 +162,13 @@ for ((book_counter = 0; book_counter <= book_counter_max; book_counter++)); do
         navigation="[[${book}]]"
       elif [[ $chapter = $maxchapter ]]; then
         # If this is the last chapter of the book
-        navigation="[[${prev_file}|← ${book} ${prev_chapter}]] | [[${book}]]"
+        navigation="[[${prev_file}|← ${book}${prev_chapter}]] | [[${book}]]"
       elif [[ ${chapter} = 1 ]]; then
         # If this is the first chapter of the book
-        navigation="[[${book}]] | [[${next_file}|${book} ${next_chapter} →]]"
+        navigation="[[${book}]] | [[${next_file}|${book}${next_chapter} →]]"
       else
         # Navigation for everything else
-        navigation="[[${prev_file}|← ${book} ${prev_chapter}]] | [[${book}]] | [[${next_file}|${book} ${next_chapter} →]]"
+        navigation="[[${prev_file}|← ${book}${prev_chapter}]] | [[${book}]] | [[${next_file}|${book}${next_chapter} →]]"
       fi
     fi
 
@@ -182,13 +182,13 @@ for ((book_counter = 0; book_counter <= book_counter_max; book_counter++)); do
           navigation="(目录:: [[${book}]])"
         elif [[ $chapter = $maxchapter ]]; then
           # If this is the last chapter of the book
-          navigation="(上一章:: [[${prev_file}|← ${book} ${prev_chapter}]]) | (目录:: [[${book}]])"
+          navigation="(上一章:: [[${prev_file}|← ${book}${prev_chapter}]]) | (目录:: [[${book}]])"
         elif [[ $chapter = 1 ]]; then
           # If this is the first chapter of the book
-          navigation="(目录:: [[${book}]]) | (下一章:: [[${next_file}|${book} ${next_chapter} →]])"
+          navigation="(目录:: [[${book}]]) | (下一章:: [[${next_file}|${book}${next_chapter} →]])"
         else
           # Navigation for everything else
-          navigation="(上一章:: [[${prev_file}|← ${book} ${prev_chapter}]]) | (目录:: [[${book}]]) | (下一章:: [[${next_file}|${book} ${next_chapter} →]])"
+          navigation="(上一章:: [[${prev_file}|← ${book}${prev_chapter}]]) | (目录:: [[${book}]]) | (下一章:: [[${next_file}|${book}${next_chapter} →]])"
         fi
       fi
     else
@@ -200,13 +200,13 @@ for ((book_counter = 0; book_counter <= book_counter_max; book_counter++)); do
           navigation="(up:: [[${book}]])"
         elif [[ $chapter = $maxchapter ]]; then
           # If this is the last chapter of the book
-          navigation="(previous:: [[${prev_file}|← ${book} ${prev_chapter}]]) | (up:: [[${book}]])"
+          navigation="(previous:: [[${prev_file}|← ${book}${prev_chapter}]]) | (up:: [[${book}]])"
         elif [[ $chapter = 1 ]]; then
           # If this is the first chapter of the book
-          navigation="(up:: [[${book}]]) | (next:: [[${next_file}|${book} ${next_chapter} →]])"
+          navigation="(up:: [[${book}]]) | (next:: [[${next_file}|${book}${next_chapter} →]])"
         else
           # Navigation for everything else
-          navigation="(previous:: [[${prev_file}|← ${book} ${prev_chapter}]]) | (up:: [[${book}]]) | (next:: [[${next_file}|${book} ${next_chapter} →]])"
+          navigation="(previous:: [[${prev_file}|← ${book}${prev_chapter}]]) | (up:: [[${book}]]) | (next:: [[${next_file}|${book}${next_chapter} →]])"
         fi
       fi
 
@@ -321,7 +321,7 @@ for ((book_counter = 0; book_counter <= book_counter_max; book_counter++)); do
   overview_file="links: [[${biblename}]]\n# ${book}\n\n"
   echo -e $overview_file >>"$book.md"
   for ((titlecount = 1; titlecount <= maxchapter; titlecount++)); do
-    overview_file="[${book} ${titlecount} ->]([[${book} ${titlecount} ]])"
+    overview_file="${book} ${titlecount} -> [[${book}${titlecount} ]]"
     echo -e $overview_file >>"$book.md"
   done
   mv "$book.md" "./${biblename}/${folder_name}"

@@ -12,7 +12,7 @@ The NET translation, however has very generous copyright rules: https://netbible
 
 This is not affiliated to, or approved by, BibleGateway.com. In my understanding it fits into the [conditions of usage](https://support.biblegateway.com/hc/en-us/articles/360001398808-How-do-I-get-permission-to-use-or-reprint-Bible-content-from-Bible-Gateway-?), but I make no guarantee regarding the usage of the script, it is at your own discretion.
 ## About
-This script adapts [jgclark's BibleGateway-to-马可福音down](https://github.com/jgclark/BibleGateway-to-马可福音down) script to export for use in [Obsidian](https://obsidian.md/). It accompanies a [Bible Study in Obsidian Kit](https://forum.obsidian.md/t/bible-study-in-obsidian-kit-including-the-bible-in-markdown/12503?u=selfire) that gets you hands-on with using Scripture in your personal notes.
+This script adapts [jgclark's BibleGateway-to-Markdown](https://github.com/jgclark/BibleGateway-to-Markdown) script to export for use in [Obsidian](https://obsidian.md/). It accompanies a [Bible Study in Obsidian Kit](https://forum.obsidian.md/t/bible-study-in-obsidian-kit-including-the-bible-in-markdown/12503?u=selfire) that gets you hands-on with using Scripture in your personal notes.
 
 What the script does is fetch the text from [Bible Gateway](https://www.biblegateway.com/) and save it as a formatted markdown file. Each chapter is saved as one file and navigation between files as well as a book-file is automatically created. All the chapter files of a book are saved in its numbered folder.
 
@@ -32,8 +32,8 @@ Here are the tools we are going to use:
 ### Updating
 In order to run the scripts, we will need to install ruby. Ruby comes pre-installed on macOS, but if you run into issues [update to the latest version](https://stackify.com/install-ruby-on-your-mac-everything-you-need-to-get-going/).
 
-### Downloading BibleGateway-to-马可福音down.rb
-Follow the instructions to download and set up [jgclark's BibleGateway-to-马可福音down](https://github.com/jgclark/BibleGateway-to-马可福音down).
+### Downloading BibleGateway-to-Markdown.rb
+Follow the instructions to download and set up [jgclark's BibleGateway-to-Markdown](https://github.com/jgclark/BibleGateway-to-Markdown).
 
 ## Usage
 ### 1. Install scripts
@@ -47,7 +47,7 @@ Place both scripts (`bg2md.rb` and `bg2obs.sh`) in the same directory, open your
 ### 2. Run the script
 Once you have navigated to the directory containing both scripts, run `bash bg2obs.sh`. This will run the bash script.
 
-`NOTE`: In this directory, a folder called `Scripture` with subfolders like `创世纪`, `出埃及记` and so on will be created.
+`NOTE`: In this directory, a folder called `Scripture` with subfolders like `Genesis`, `Exodus` and so on will be created.
 
 Several options are available via command-line switches. Type `bash bg2obs.sh -h` at any time to display them.
 
@@ -56,7 +56,7 @@ Several options are available via command-line switches. Type `bash bg2obs.sh -h
 | `-v [VERSION]` | Specify the version of the Bible to download (default is WEB) |
 | `-b` | Set words of Jesus in bold (default is Off)|
 | `-e` | Include editorial headers (default is Off)|
-| `-a` | Create an alias in the YAML front matter with a more user-friendly chapter title  (e.g., "创世纪 1") (default is Off)|
+| `-a` | Create an alias in the YAML front matter with a more user-friendly chapter title  (e.g., "Genesis 1") (default is Off)|
 | `-i` | Show progress information while the script is running (i.e. "verbose" mode) (default is Off)|
 | `-c` | Include *inline* navigation for the [breadcrumbs](https://github.com/SkepticMystic/breadcrumbs) plugin (e.g. 'up', 'next','previous') (default is Off)|
 | `-y` | Include navigation for the breadcrumbs plugin in the *frontmatter* (YAML) (default is Off)|
@@ -73,7 +73,7 @@ Several options are available via command-line switches. Type `bash bg2obs.sh -h
 
 Some cross references are sometimes still included, run `\<crossref intro.*crossref\>` to delete.
 
-**There you go!** Now, just move the "Scripture" folder into your Obsidian vault. You can use the provided `圣经.md` file as an overview file.
+**There you go!** Now, just move the "Scripture" folder into your Obsidian vault. You can use the provided `The Bible.md` file as an overview file.
 
 ## Translations
 This script downloads the [World English Bible](https://worldenglish.bible/) by default. If you want to download a different translation, specify the version using the `-v` command-line switch as documented above. The list of abbreviations is available on the [Bible Gateway](https://www.biblegateway.com) site under the version drop-down menu in the search bar.  Make sure to honour copyright guidelines. The script has not been tested with all versions of the Bible available at Bible Gateway, though most of the more commonly-used ones should work.
@@ -90,12 +90,12 @@ Below are common issues when using the script. If this still doesn't solve your 
 An error like this indicates ruby or the gems aren't installed properly: `in require: cannot load such file -- colorize (LoadError)`
 
 **Solutions**
-* Have a look at the [bg2md installation guide](https://github.com/jgclark/BibleGateway-to-马可福音down/tree/7aaa4cdaba5d8ebb2e7e3fa5ace7de96c1534846#installation) to make sure you installed ruby and gems properly.
+* Have a look at the [bg2md installation guide](https://github.com/jgclark/BibleGateway-to-Markdown/tree/7aaa4cdaba5d8ebb2e7e3fa5ace7de96c1534846#installation) to make sure you installed ruby and gems properly.
 * Run the gem install with admin privileges: `sudo gem install colorize optparse clipboard`.
 * Re-install ruby and gems.
 
 ### The first chapter of the book repeats
-☑️ Use [version 1.4.3](https://github.com/jgclark/BibleGateway-to-马可福音down/tree/d693e85bba94122a2f46bec3ff9487333bccfdbf) of jgclark's script instead of the newest version.
+☑️ Use [version 1.4.3](https://github.com/jgclark/BibleGateway-to-Markdown/tree/d693e85bba94122a2f46bec3ff9487333bccfdbf) of jgclark's script instead of the newest version.
 
 ## Contributing
 Pull requests are welcome.
