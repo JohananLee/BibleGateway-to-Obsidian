@@ -332,16 +332,16 @@ for ((book_counter = 0; book_counter <= book_counter_max; book_counter++)); do
                 # Formatting Navigation and omitting links that aren't necessary
                 if [[ $maxchapter = 1 ]]; then
                     # For a book that only has one chapter
-                    bc_yaml="目录: ['${book}']"
+                    bc_yaml="# 导航\n目录: ['${book}']"
                     elif [[ $chapter = $maxchapter ]]; then
                     # If this is the last chapter of the book
-                    bc_yaml="上一章: ['${prev_file}']\nup: ['${book}']"
+                    bc_yaml="# 导航\n上一章: ['${prev_file}']\nup: ['${book}']"
                     elif [[ $chapter = 1 ]]; then
                     # If this is the first chapter of the book
-                    bc_yaml="目录: ['${book}']\n下一章: ['${next_file}']"
+                    bc_yaml="# 导航\n目录: ['${book}']\n下一章: ['${next_file}']"
                 else
                     # Navigation for everything else
-                    bc_yaml="目录: ['${book}']\n上一章: ['${prev_file}']\n下一章: ['${next_file}']"
+                    bc_yaml="# 导航\n目录: ['${book}']\n上一章: ['${prev_file}']\n下一章: ['${next_file}']"
                 fi
             fi
         else
@@ -349,16 +349,16 @@ for ((book_counter = 0; book_counter <= book_counter_max; book_counter++)); do
                 # Formatting Navigation and omitting links that aren't necessary
                 if [[ $maxchapter = 1 ]]; then
                     # For a book that only has one chapter
-                    bc_yaml="up: ['${book}']"
+                    bc_yaml="# Navigation\nup: ['${book}']"
                     elif [[ $chapter = $maxchapter ]]; then
                     # If this is the last chapter of the book
-                    bc_yaml="previous: ['${prev_file}']\nup: ['${book}']"
+                    bc_yaml="# Navigation\nprevious: ['${prev_file}']\nup: ['${book}']"
                     elif [[ $chapter = 1 ]]; then
                     # If this is the first chapter of the book
-                    bc_yaml="up: ['${book}']\nnext: ['${next_file}']"
+                    bc_yaml="# Navigation\nup: ['${book}']\nnext: ['${next_file}']"
                 else
                     # Navigation for everything else
-                    bc_yaml="up: ['${book}']\nprevious: ['${prev_file}']\nnext: ['${next_file}']"
+                    bc_yaml="# Navigation\nup: ['${book}']\nprevious: ['${prev_file}']\nnext: ['${next_file}']"
                 fi
             fi
         fi
